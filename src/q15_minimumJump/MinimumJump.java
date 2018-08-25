@@ -1,8 +1,12 @@
-package algorithmQuestions;
+package q15_minimumJump;
 
-public class Q15 {
-
-	public int jumpToLast(int[] a, int start){
+public class MinimumJump {
+	
+	public int minJump(int[] a) {
+		return minJumpToLast(a, 0);
+	}
+	
+	public int minJumpToLast(int[] a, int start){
 		int minValue = 999;
 		
 		int value = 0;
@@ -11,7 +15,7 @@ public class Q15 {
 				return 1;
 			}
 			else{
-				value = jumpToLast(a, i) + 1;
+				value = minJumpToLast(a, i) + 1;
 			}
 			if(minValue > value){
 				minValue = value;
@@ -22,13 +26,11 @@ public class Q15 {
 	}
 
 	public static void main(String[] args) {
-		Q15 q15 = new Q15();
+		MinimumJump mj = new MinimumJump();
 		
-		int[] a = {2,1,1,1,4};
+		int[] a = {3,1,2,1,4};
 		
-		int minJump = q15.jumpToLast(a, 0);
+		int minJump = mj.minJump(a);
 		System.out.println(minJump);
 	}
-	
-	
 }
