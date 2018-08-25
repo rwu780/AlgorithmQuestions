@@ -1,51 +1,55 @@
-package algorithmQuestions;
+package q11_findPrimeUpToN;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Q11 {
+public class FindPrime {
 	
 	Scanner scan;
 	
-	public Q11(){
+	FindPrime(){
 		scan = new Scanner(System.in);
 	}
-
-	public List<Integer> findPrime(){
-		System.out.println("Please enter a number");
-		
-		int n = scan.nextInt();
+	
+	public List<Integer> find() {
+		System.out.println("Please enter a number: ");
+		int number = scan.nextInt();
 		
 		List<Integer> prime = new ArrayList<Integer>();
-		prime.add(1);
 		
-		if(n < 2){
-			
+		if(number < 2) {
 			return prime;
 		}
 		
-		for (int i = 2; i < n; i++) {
+		prime.add(2);
+		
+		for (int i = 2; i < number; i++) {
 			boolean isPrime = true;
-			for(int j : prime){
-				if(i % j == 0 && j != 1){
+			for(int j : prime) {
+				if(i % j == 0) {
 					isPrime = false;
 					break;
 				}
 			}
-			if(isPrime){
+		
+			if(isPrime) {
 				prime.add(i);
 			}
+		
 		}
-
+		
 		return prime;
+		
 	}
 	
 	public static void main(String[] args) {
-		Q11 q11 = new Q11();
-
-		List<Integer> prime = q11.findPrime();
+		
+		FindPrime fp = new FindPrime();
+		List<Integer> prime = fp.find();
 		System.out.println("Prime Array: " + Arrays.toString(prime.toArray()));
+		
 	}
+
 }
