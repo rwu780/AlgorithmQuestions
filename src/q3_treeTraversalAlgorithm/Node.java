@@ -1,6 +1,6 @@
 package q3_treeTraversalAlgorithm;
 
-public class Node {
+class Node {
 	int value;
 	Node left;
 	Node right;
@@ -11,6 +11,7 @@ public class Node {
 		left = null;
 		right = null;
 	}
+	
 
 	public int getValue() {
 		return value;
