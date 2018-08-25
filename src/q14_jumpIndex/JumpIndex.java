@@ -1,7 +1,7 @@
-package algorithmQuestions;
+package q14_jumpIndex;
 
-public class Q14 {
-
+public class JumpIndex {
+	
 	public boolean canJump(int[] a) {
 
 		if (a.length < 1) {
@@ -28,15 +28,16 @@ public class Q14 {
 
 		return false;
 	}
-
+	
 	public static void main(String[] args) {
-		Q14 q14 = new Q14();
+		JumpIndex ji = new JumpIndex();
 		int[] a = { 3, 2, 1, 0, 4 };
 
-		System.out.println("Can reach? " + q14.canJump(a));
+		System.out.println("Can reach? " + ji.canJump(a));
 
-		a = new int[] { 2, 3, 0, 2, 0, 1, 0, 4 };
+		a = new int[] { 2, 3, 0, 2, 0, 1, 1, 4 };
 
-		System.out.println("Can reach? " + q14.canJump(a));
+		System.out.println("Can reach? " + ji.canJump(a));
 	}
+
 }
