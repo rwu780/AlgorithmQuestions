@@ -1,23 +1,24 @@
 package q5_shortestPath;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DijkstraShortestPaths {
 	
-	int[] distances;
-	Vertx[] previous;
+	HashMap<Vertx, Integer> distances;
+	HashMap<Vertx, Vertx> previous;
 	List<Vertx> unsettled;
 	List<Vertx> completed;
 	Graph graph;
 	
 	public DijkstraShortestPaths(Graph g) {
 		this.graph = g;
-		int sizes = g.getVertx().size();
-		distances = new int[sizes];
-		previous = new Vertx[sizes];
-		for (int i = 0; i < distances.length; i++) {
-			distances[i] = Integer.MAX_VALUE;
+		distances = new HashMap<Vertx, Integer>();
+		previous = new HashMap<Vertx, Vertx>();
+
+		for(Vertx v: graph.getVertx()) {
+			distances.put(v, Integer.MAX_VALUE);
 		}
 		
 		unsettled = new ArrayList<Vertx>();
@@ -25,10 +26,8 @@ public class DijkstraShortestPaths {
 	}
 	
 	public int shortestPath(Vertx source, Vertx destination) {
-		int desIndex = getIndex(destination);
-		int sourceIndex = getIndex(source);
-		
-		distances[sourceIndex] = 0;
+
+		distances.replace(source, 0);
 		unsettled.add(source);
 		
 		while(!unsettled.isEmpty()) {
@@ -41,15 +40,15 @@ public class DijkstraShortestPaths {
 		Vertx v = destination;
 		StringBuilder sb = new StringBuilder();
 		
-		while(previous[getIndex(v)] != null) {
-			sb.append(v.getValue());
+		while(previous.containsKey(v) ) {
+		sb.append(v.getValue());
 			sb.append(" > ");
-			v = previous[getIndex(v)];	
+			v = previous.get(v);
 		}
 		sb.append(source.getValue());
 		
 		System.out.println(sb.reverse().toString());
-		return distances[desIndex];
+		return distances.get(destination);
 	}
 
 	
@@ -57,9 +56,8 @@ public class DijkstraShortestPaths {
 		int min = Integer.MAX_VALUE;
 		Vertx minVertx = null;
 		for(Vertx v : unsettled) {
-			int index = getIndex(v);
-			if(distances[index] <= min) {
-				min = distances[index];
+			if(distances.get(v) <= min) {
+				min = distances.get(v);
 				minVertx = v;
 			}
 		}
@@ -88,18 +86,16 @@ public class DijkstraShortestPaths {
 					unsettled.add(nextVertx);
 			}
 			
-			int currentIndex = getIndex(nextVertx);
-			int currentDistance = distances[currentIndex];
+			int currentDistance = distances.get(nextVertx);
 			
-			int sourceIndex = getIndex(sourceVertx);
-			int sourceDistnace = distances[sourceIndex];
+			int sourceDistance = distances.get(sourceVertx);
 			
-			int newDistance = e.getWeight() + sourceDistnace;
+			int newDistance = e.getWeight() + sourceDistance;
 			
 			if(newDistance < currentDistance) {
 				
-				distances[currentIndex] = newDistance;
-				previous[currentIndex] = sourceVertx;
+				distances.replace(nextVertx, newDistance);
+				previous.replace(nextVertx, sourceVertx);
 	
 			}
 		}

@@ -30,7 +30,7 @@ public class MainApp {
 		g.addEdge(v5, v7, 2);
 		g.addEdge(v6, v7, 2);
 		
-		int distance = g.shortestPath(v1, v4);
+		int distance = g.shortestPath(v1, v6);
 		
 		System.out.println("The minimum distance is: " + distance);
 	}
